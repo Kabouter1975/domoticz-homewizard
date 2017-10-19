@@ -529,12 +529,12 @@ class BasePlugin:
                 return
 
             # Switch pump exists? If not create it.
-            if ( hl_pump not in Devices ):
-                Domoticz.Device(Name='HL Pump',  Unit=hl_pump, TypeName="Switch").Create()
+            if ( self.hl_pump not in Devices ):
+                Domoticz.Device(Name='HL Pump',  Unit=self.hl_pump, TypeName="Switch").Create()
 
             # Switch heating exists? If not create it.
-            if ( hl_heating not in Devices ):
-                Domoticz.Device(Name='HL Heating',  Unit=hl_heating, TypeName="Switch").Create()
+            if ( self.hl_heating not in Devices ):
+                Domoticz.Device(Name='HL Heating',  Unit=self.hl_heating, TypeName="Switch").Create()
 
             # Set the pump switch value
             hl_state = self.GetValue(jsonData["response"]["heatlinks"][0], "pump", "off").lower()
@@ -543,7 +543,7 @@ class BasePlugin:
             else:
                 hl_state = "0"
                 
-            UpdateDevice(hl_pump, int(hl_state), "")
+            UpdateDevice(self.hl_pump, int(hl_state), "")
 
 
             # Set the heating switch value
@@ -553,7 +553,7 @@ class BasePlugin:
             else:
                 hl_state = "0"
                 
-            UpdateDevice(hl_heating, int(hl_state), "")
+            UpdateDevice(self.hl_heating, int(hl_state), "")
             
         except:
             Domoticz.Error("Error at setting the heatlink values!")
